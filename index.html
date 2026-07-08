@@ -3,864 +3,193 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SheaMart – Retail Order Management</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --orange: #e65c00;
-      --orange-light: #fff3eb;
-      --orange-dark: #b84700;
-      --navy: #1a2340;
-      --navy-mid: #2c3a5c;
-      --text: #1a2340;
-      --text-muted: #5a6478;
-      --bg: #f7f8fa;
-      --white: #ffffff;
-      --border: #e2e6ef;
-      --green: #1d7a4f;
-      --green-light: #e6f5ee;
-      --radius: 10px;
-      --shadow: 0 2px 12px rgba(26,35,64,0.08);
-    }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    /* ── HEADER ── */
-    header {
-      background: var(--navy);
-      color: var(--white);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--white);
-    }
-
-    .logo-icon {
-      width: 36px;
-      height: 36px;
-      background: var(--orange);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .logo-text {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-    }
-
-    .logo-text span {
-      color: var(--orange);
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    nav a {
-      color: rgba(255,255,255,0.78);
-      text-decoration: none;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    nav a:hover, nav a.active {
-      background: rgba(255,255,255,0.1);
-      color: var(--white);
-    }
-
-    .nav-login {
-      background: var(--orange) !important;
-      color: var(--white) !important;
-      margin-left: 8px;
-    }
-
-    .nav-login:hover {
-      background: var(--orange-dark) !important;
-    }
-
-    /* ── HERO / MAIN ── */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 24px 60px;
-    }
-
-    /* Hero */
-    .hero {
-      background: var(--navy);
-      border-radius: 16px;
-      padding: 52px 48px;
-      color: var(--white);
-      margin-bottom: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
-
-    .hero-content { flex: 1; min-width: 280px; }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(230,92,0,0.25);
-      color: #ffb07a;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-    }
-
-    .hero h1 {
-      font-size: 36px;
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 16px;
-      letter-spacing: -0.5px;
-    }
-
-    .hero h1 span { color: var(--orange); }
-
-    .hero p {
-      font-size: 16px;
-      color: rgba(255,255,255,0.72);
-      max-width: 480px;
-      margin-bottom: 28px;
-    }
-
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: background 0.15s, transform 0.1s;
-    }
-
-    .btn:active { transform: scale(0.97); }
-
-    .btn-orange {
-      background: var(--orange);
-      color: var(--white);
-    }
-
-    .btn-orange:hover { background: var(--orange-dark); }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--white);
-      border: 2px solid rgba(255,255,255,0.3);
-    }
-
-    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
-
-    .hero-visual {
-      width: 200px;
-      height: 200px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 80px;
-      flex-shrink: 0;
-    }
-
-    /* Section titles */
-    .section-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 6px;
-    }
-
-    .section-sub {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-    }
-
-    /* Feature cards */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 18px;
-      margin-bottom: 48px;
-    }
-
-    .card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px 20px;
-      box-shadow: var(--shadow);
-      transition: box-shadow 0.15s, transform 0.15s;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 24px rgba(26,35,64,0.14);
-      transform: translateY(-2px);
-    }
-
-    .card-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      margin-bottom: 14px;
-    }
-
-    .icon-orange { background: var(--orange-light); }
-    .icon-blue { background: #ebf3ff; }
-    .icon-green { background: var(--green-light); }
-    .icon-purple { background: #f0ebff; }
-
-    .card h3 {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 6px;
-    }
-
-    .card p {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    /* Product listings */
-    .products-section { margin-bottom: 48px; }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
-
-    .product-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: box-shadow 0.15s, transform 0.15s;
-    }
-
-    .product-card:hover {
-      box-shadow: 0 8px 28px rgba(26,35,64,0.14);
-      transform: translateY(-3px);
-    }
-
-    .product-img {
-      height: 140px;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 52px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .product-body { padding: 16px; }
-
-    .product-tag {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--orange);
-      margin-bottom: 6px;
-    }
-
-    .product-name {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 4px;
-    }
-
-    .product-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-    }
-
-    .product-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .product-price {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--navy);
-    }
-
-    .product-price span {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 400;
-    }
-
-    .btn-add {
-      background: var(--orange);
-      color: var(--white);
-      border: none;
-      border-radius: 7px;
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .btn-add:hover { background: var(--orange-dark); }
-
-    /* Login section */
-    .login-section {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 36px 32px;
-      max-width: 420px;
-      margin: 0 auto 48px;
-      box-shadow: var(--shadow);
-    }
-
-    .login-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 4px;
-    }
-
-    .login-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-    }
-
-    .form-group { margin-bottom: 16px; }
-
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 6px;
-    }
-
-    .form-group input, .form-group select {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      font-size: 14px;
-      color: var(--text);
-      background: var(--bg);
-      transition: border-color 0.15s, box-shadow 0.15s;
-      outline: none;
-    }
-
-    .form-group input:focus, .form-group select:focus {
-      border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(230,92,0,0.12);
-    }
-
-    .form-roles {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .role-badge {
-      flex: 1;
-      padding: 8px 10px;
-      border-radius: 7px;
-      border: 2px solid var(--border);
-      text-align: center;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      color: var(--text-muted);
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .role-badge.active {
-      border-color: var(--orange);
-      color: var(--orange);
-      background: var(--orange-light);
-    }
-
-    .security-note {
-      background: var(--green-light);
-      border-left: 3px solid var(--green);
-      border-radius: 0 7px 7px 0;
-      padding: 10px 14px;
-      font-size: 12px;
-      color: var(--green);
-      margin-bottom: 18px;
-      font-weight: 500;
-    }
-
-    /* Status / Access control badges */
-    .access-section {
-      background: var(--navy);
-      border-radius: var(--radius);
-      padding: 28px 32px;
-      margin-bottom: 48px;
-      color: var(--white);
-    }
-
-    .access-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .access-item {
-      background: rgba(255,255,255,0.06);
-      border-radius: 8px;
-      padding: 16px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .access-role {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--orange);
-      margin-bottom: 8px;
-    }
-
-    .access-list {
-      list-style: none;
-      font-size: 13px;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.8;
-    }
-
-    .access-list li::before {
-      content: '✓ ';
-      color: #6ee7b7;
-      font-weight: 700;
-    }
-
-    .access-list li.denied::before {
-      content: '✕ ';
-      color: #f87171;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--navy);
-      color: rgba(255,255,255,0.65);
-      padding: 40px 24px 24px;
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 32px;
-      margin-bottom: 32px;
-    }
-
-    .footer-col h4 {
-      color: var(--white);
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .footer-col ul {
-      list-style: none;
-    }
-
-    .footer-col ul li {
-      margin-bottom: 8px;
-    }
-
-    .footer-col ul li a {
-      color: rgba(255,255,255,0.55);
-      text-decoration: none;
-      font-size: 13px;
-      transition: color 0.15s;
-    }
-
-    .footer-col ul li a:hover { color: var(--white); }
-
-    .footer-col p {
-      font-size: 13px;
-      line-height: 1.65;
-    }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-bottom p {
-      font-size: 12px;
-    }
-
-    .security-badges {
-      display: flex;
-      gap: 10px;
-    }
-
-    .sec-badge {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 6px;
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.55);
-    }
-  </style>
+  <title>SheaMart – Home</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ═══════════════════════════
-       HEADER
-  ═══════════════════════════ -->
-  <header>
-    <div class="header-inner">
-
-      <a href="#" class="logo">
+  <!-- ═══════════ HEADER ═══════════ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
         <div class="logo-icon">🛒</div>
         <span class="logo-text">Shea<span>Mart</span></span>
       </a>
-
-      <nav>
-        <a href="#" class="active">Home</a>
-        <a href="#products">Products</a>
-        <a href="#orders">Orders</a>
-        <a href="#about">About</a>
-        <a href="#login" class="nav-login">Login</a>
+      <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="#" class="nav-cta">Login</a>
       </nav>
-
     </div>
   </header>
 
-
-  <!-- ═══════════════════════════
-       MAIN
-  ═══════════════════════════ -->
   <main>
 
-    <!-- Hero Section -->
+    <!-- ═══════════ HERO ═══════════ -->
     <section class="hero">
-      <div class="hero-content">
-        <div class="hero-badge">🔒 Secure Retail System</div>
-        <h1>Smart Shopping,<br><span>Secured by Design</span></h1>
-        <p>A modern retail order management system with role-based access control, password-protected accounts, and a seamless shopping experience.</p>
-        <div class="hero-actions">
-          <a href="#products" class="btn btn-orange">Browse Products</a>
-          <a href="#login" class="btn btn-outline">Login to Account</a>
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge">🔒 Secure Retail System</div>
+          <h1>Smart Shopping,<br><span>Secured by Design</span></h1>
+          <p>SheaMart is a modern retail order management system with role-based access control, password-protected accounts, and real-time order tracking.</p>
+          <div class="hero-actions">
+            <a href="#products" class="btn btn-primary">Browse Products</a>
+            <a href="contact.html" class="btn btn-outline">Contact Us</a>
+          </div>
         </div>
-      </div>
-      <div class="hero-visual">🏪</div>
-    </section>
-
-    <!-- Features / Module Overview -->
-    <section id="about">
-      <h2 class="section-title">System Modules</h2>
-      <p class="section-sub">Each module handles a key part of the retail management system.</p>
-      <div class="cards-grid">
-
-        <div class="card">
-          <div class="card-icon icon-orange">📦</div>
-          <h3>Product Catalogue</h3>
-          <p>Browse products. Admins add and edit items; users can only view.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-icon icon-blue">🛒</div>
-          <h3>Shopping Cart</h3>
-          <p>Add or remove products. Each user can only access their own cart.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-icon icon-green">📋</div>
-          <h3>Order Processing</h3>
-          <p>Place and validate orders. All inputs are checked before saving.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-icon icon-purple">👤</div>
-          <h3>User Management</h3>
-          <p>Registration, login, and role control — Admin vs regular User.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-icon icon-orange">🚚</div>
-          <h3>Order Tracking</h3>
-          <p>Track order status in real time. Admins update order progress.</p>
-        </div>
-
-        <div class="card">
-          <div class="card-icon icon-blue">📊</div>
-          <h3>Admin Dashboard</h3>
-          <p>View all users, orders, and key statistics. Admin access only.</p>
-        </div>
-
+        <div class="hero-visual">🏪</div>
       </div>
     </section>
 
-    <!-- Access Control Panel -->
-    <section class="access-section">
-      <h2 style="color: white; font-size: 18px; font-weight: 700; margin-bottom: 4px;">Access Control — Role Permissions</h2>
-      <p style="font-size: 13px; color: rgba(255,255,255,0.55);">Security is enforced at every route. No role can exceed its permissions.</p>
-      <div class="access-grid">
+    <!-- ═══════════ PROJECT OVERVIEW ═══════════ -->
+    <section class="section" id="overview">
+      <div class="container">
+        <h2 class="section-title">System Modules</h2>
+        <p class="section-sub">Each module handles a key part of the SheaMart retail management system.</p>
+        <div class="grid-3">
 
-        <div class="access-item">
-          <div class="access-role">👤 User</div>
-          <ul class="access-list">
-            <li>View product catalogue</li>
-            <li>Manage own cart</li>
-            <li>Place orders</li>
-            <li>Track own orders</li>
-            <li class="denied">Edit products</li>
-            <li class="denied">View all orders</li>
-            <li class="denied">Access dashboard</li>
-          </ul>
+          <div class="card">
+            <div style="font-size:2rem;margin-bottom:12px;">📦</div>
+            <h3>Product Catalogue</h3>
+            <p>Browse all available products. Admins can add and edit items. Users can only view.</p>
+          </div>
+
+          <div class="card">
+            <div style="font-size:2rem;margin-bottom:12px;">🛒</div>
+            <h3>Shopping Cart</h3>
+            <p>Add or remove products from your cart. Each user can only access their own cart.</p>
+          </div>
+
+          <div class="card">
+            <div style="font-size:2rem;margin-bottom:12px;">📋</div>
+            <h3>Order Processing</h3>
+            <p>Place and validate orders. All inputs are checked before saving to the database.</p>
+          </div>
+
+          <div class="card">
+            <div style="font-size:2rem;margin-bottom:12px;">👤</div>
+            <h3>User Management</h3>
+            <p>Registration, login, and role control — Admin vs regular User.</p>
+          </div>
+
+          <div class="card" style="border-color: var(--orange);">
+            <div style="font-size:2rem;margin-bottom:12px;">🚚</div>
+            <h3 style="color:var(--orange);">Order Tracking</h3>
+            <p>Track order status in real time. Admins update progress from placed to delivered.</p>
+            <span style="font-size:12px;font-weight:600;color:var(--orange);">★ Our Module</span>
+          </div>
+
+          <div class="card">
+            <div style="font-size:2rem;margin-bottom:12px;">📊</div>
+            <h3>Admin Dashboard</h3>
+            <p>View all users, orders, and key statistics. Admin access only.</p>
+          </div>
+
         </div>
-
-        <div class="access-item">
-          <div class="access-role">🛡️ Admin</div>
-          <ul class="access-list">
-            <li>All user permissions</li>
-            <li>Add / edit products</li>
-            <li>View all orders</li>
-            <li>Update order status</li>
-            <li>Manage all users</li>
-            <li>Access dashboard</li>
-            <li>View statistics</li>
-          </ul>
-        </div>
-
-        <div class="access-item">
-          <div class="access-role">🔒 Security</div>
-          <ul class="access-list">
-            <li>Passwords are hashed</li>
-            <li>Input validation</li>
-            <li>Route-level protection</li>
-            <li>Session management</li>
-            <li>CSRF protection</li>
-          </ul>
-        </div>
-
       </div>
     </section>
 
-    <!-- Product Catalogue -->
-    <section id="products" class="products-section">
-      <h2 class="section-title">Product Catalogue</h2>
-      <p class="section-sub">Showing available products — add to cart or view details.</p>
+    <!-- ═══════════ PRODUCTS ═══════════ -->
+    <section class="section" id="products" style="background:var(--white);">
+      <div class="container">
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-sub">Browse our available products — add to cart or view details.</p>
+        <div class="grid-3" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
 
-      <div class="products-grid">
-
-        <div class="product-card">
-          <div class="product-img">🔨</div>
-          <div class="product-body">
-            <div class="product-tag">Tools</div>
-            <div class="product-name">Pro Claw Hammer</div>
-            <div class="product-desc">Fibreglass handle, 16oz head. Ideal for framing.</div>
-            <div class="product-footer">
-              <div class="product-price">$24.99 <span>each</span></div>
-              <button class="btn-add">Add to Cart</button>
+          <div class="card" style="padding:0;overflow:hidden;">
+            <div style="height:140px;background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:52px;border-bottom:1px solid var(--border);">🔨</div>
+            <div style="padding:18px;">
+              <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--orange);margin-bottom:4px;">Tools</div>
+              <h4>Pro Claw Hammer</h4>
+              <p style="font-size:12px;margin:4px 0 12px;">Fibreglass handle, 16oz head.</p>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:18px;font-weight:800;color:var(--navy);">$24.99</span>
+                <button class="btn btn-primary" style="padding:8px 14px;font-size:13px;" onclick="addToCart(this)">Add to Cart</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="product-card">
-          <div class="product-img">🪛</div>
-          <div class="product-body">
-            <div class="product-tag">Tools</div>
-            <div class="product-name">Screwdriver Set</div>
-            <div class="product-desc">10-piece set, magnetic tips, soft-grip handles.</div>
-            <div class="product-footer">
-              <div class="product-price">$18.50 <span>set</span></div>
-              <button class="btn-add">Add to Cart</button>
+          <div class="card" style="padding:0;overflow:hidden;">
+            <div style="height:140px;background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:52px;border-bottom:1px solid var(--border);">🪛</div>
+            <div style="padding:18px;">
+              <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--orange);margin-bottom:4px;">Tools</div>
+              <h4>Screwdriver Set</h4>
+              <p style="font-size:12px;margin:4px 0 12px;">10-piece set, magnetic tips.</p>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:18px;font-weight:800;color:var(--navy);">$18.50</span>
+                <button class="btn btn-primary" style="padding:8px 14px;font-size:13px;" onclick="addToCart(this)">Add to Cart</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="product-card">
-          <div class="product-img">🪜</div>
-          <div class="product-body">
-            <div class="product-tag">Equipment</div>
-            <div class="product-name">Aluminium Ladder</div>
-            <div class="product-desc">1.8m A-frame, 150kg rated, non-slip feet.</div>
-            <div class="product-footer">
-              <div class="product-price">$89.00 <span>each</span></div>
-              <button class="btn-add">Add to Cart</button>
+          <div class="card" style="padding:0;overflow:hidden;">
+            <div style="height:140px;background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:52px;border-bottom:1px solid var(--border);">🪜</div>
+            <div style="padding:18px;">
+              <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--orange);margin-bottom:4px;">Equipment</div>
+              <h4>Aluminium Ladder</h4>
+              <p style="font-size:12px;margin:4px 0 12px;">1.8m A-frame, 150kg rated.</p>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:18px;font-weight:800;color:var(--navy);">$89.00</span>
+                <button class="btn btn-primary" style="padding:8px 14px;font-size:13px;" onclick="addToCart(this)">Add to Cart</button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="product-card">
-          <div class="product-img">🎨</div>
-          <div class="product-body">
-            <div class="product-tag">Paint</div>
-            <div class="product-name">Interior Paint 4L</div>
-            <div class="product-desc">White base, low VOC, washable finish.</div>
-            <div class="product-footer">
-              <div class="product-price">$42.00 <span>4L tin</span></div>
-              <button class="btn-add">Add to Cart</button>
+          <div class="card" style="padding:0;overflow:hidden;">
+            <div style="height:140px;background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:52px;border-bottom:1px solid var(--border);">🎨</div>
+            <div style="padding:18px;">
+              <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--orange);margin-bottom:4px;">Paint</div>
+              <h4>Interior Paint 4L</h4>
+              <p style="font-size:12px;margin:4px 0 12px;">White base, low VOC, washable.</p>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:18px;font-weight:800;color:var(--navy);">$42.00</span>
+                <button class="btn btn-primary" style="padding:8px 14px;font-size:13px;" onclick="addToCart(this)">Add to Cart</button>
+              </div>
             </div>
           </div>
+
         </div>
-
-      </div>
-    </section>
-
-    <!-- Login Form -->
-    <section id="login">
-      <div class="login-section">
-        <div class="login-title">Login to Your Account</div>
-        <div class="login-sub">Access your orders, cart, and account details.</div>
-
-        <div class="form-roles">
-          <div class="role-badge active" onclick="selectRole(this)">👤 User</div>
-          <div class="role-badge" onclick="selectRole(this)">🛡️ Admin</div>
-        </div>
-
-        <div class="security-note">
-          🔒 Passwords are hashed using bcrypt. Your data is safe.
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" />
-        </div>
-
-        <button class="btn btn-orange" style="width:100%; padding: 12px;" onclick="handleLogin()">
-          Login Securely
-        </button>
-
-        <p style="font-size:13px; text-align:center; color:var(--text-muted); margin-top:14px;">
-          Don't have an account? <a href="#" style="color:var(--orange); font-weight:600;">Register here</a>
-        </p>
       </div>
     </section>
 
   </main>
 
-
-  <!-- ═══════════════════════════
-       FOOTER
-  ═══════════════════════════ -->
-  <footer>
-    <div class="footer-inner">
-
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
+    <div class="container">
       <div class="footer-grid">
-
         <div class="footer-col">
           <h4>🛒 SheaMart</h4>
-          <p>A secure retail order management system built for the Secure Retail System group project — Week 3 frontend.</p>
+          <p>A secure retail order management system built as a capstone group project.</p>
         </div>
-
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
         <div class="footer-col">
           <h4>Modules</h4>
           <ul>
             <li><a href="#">Product Catalogue</a></li>
             <li><a href="#">Shopping Cart</a></li>
-            <li><a href="#">Order Processing</a></li>
-            <li><a href="#">User Management</a></li>
-            <li><a href="#">Order Tracking</a></li>
+            <li><a href="#" style="color:var(--orange);font-weight:600;">Order Tracking ★</a></li>
             <li><a href="#">Admin Dashboard</a></li>
           </ul>
         </div>
-
         <div class="footer-col">
-          <h4>Project Tools</h4>
+          <h4>Project</h4>
           <ul>
             <li><a href="#">GitHub Repository</a></li>
             <li><a href="#">JIRA Sprint Board</a></li>
-            <li><a href="#">Pull Requests</a></li>
             <li><a href="#">Documentation</a></li>
           </ul>
         </div>
-
-        <div class="footer-col">
-          <h4>Security</h4>
-          <ul>
-            <li><a href="#">Password Hashing</a></li>
-            <li><a href="#">Access Control</a></li>
-            <li><a href="#">Input Validation</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-          </ul>
-        </div>
-
       </div>
-
       <div class="footer-bottom">
         <p>© 2025 SheaMart Group Project. Built for educational purposes.</p>
         <div class="security-badges">
@@ -869,51 +198,21 @@
           <div class="sec-badge">✅ Validated</div>
         </div>
       </div>
-
     </div>
   </footer>
 
-
-  <!-- ═══════════════════════════
-       JAVASCRIPT
-  ═══════════════════════════ -->
   <script>
-    // Role selection
-    function selectRole(el) {
-      document.querySelectorAll('.role-badge').forEach(b => b.classList.remove('active'));
-      el.classList.add('active');
+    function toggleNav() {
+      document.getElementById('site-nav').classList.toggle('open');
     }
-
-    // Basic login handler (frontend only — would connect to backend)
-    function handleLogin() {
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-
-      // Input validation
-      if (!email || !email.includes('@')) {
-        alert('Please enter a valid email address.');
-        return;
-      }
-      if (password.length < 6) {
-        alert('Password must be at least 6 characters.');
-        return;
-      }
-
-      // In a real system: POST to /api/login with hashed credentials
-      alert('Login submitted! (Backend connection needed for full auth.)');
+    function addToCart(btn) {
+      btn.textContent = '✓ Added!';
+      btn.style.background = '#1d7a4f';
+      setTimeout(() => {
+        btn.textContent = 'Add to Cart';
+        btn.style.background = '';
+      }, 1500);
     }
-
-    // Add to cart
-    document.querySelectorAll('.btn-add').forEach(btn => {
-      btn.addEventListener('click', function() {
-        this.textContent = '✓ Added!';
-        this.style.background = '#1d7a4f';
-        setTimeout(() => {
-          this.textContent = 'Add to Cart';
-          this.style.background = '';
-        }, 1500);
-      });
-    });
   </script>
 
 </body>
