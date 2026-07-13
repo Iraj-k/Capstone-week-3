@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SheaMart – About</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════ HEADER ═══════════ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🛒</div>
+        <span class="logo-text">Shea<span>Mart</span></span>
+      </a>
+      <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="#" class="nav-cta">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════ PAGE HERO ═══════════ -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>About SheaMart</h1>
+        <p>Learn about our project, the problem we are solving, and the team behind it.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════ PROJECT DESCRIPTION ═══════════ -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Project Description</h2>
+        <p class="section-sub">What is SheaMart and what does it do?</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3 style="margin-bottom:12px;">What is SheaMart?</h3>
+            <p>SheaMart is a secure online retail order management system built as part of our Capstone group project. It allows customers to browse products, add items to a cart, place orders, and track their delivery status in real time.</p>
+            <p>Admins can manage the product catalogue, view all customer orders, update order status, and monitor the business through a statistics dashboard.</p>
+            <p style="margin:0;">The system is built with security at its core — every user has a role, and access is strictly controlled based on that role.</p>
+          </div>
+
+          <div class="card">
+            <h3 style="margin-bottom:12px;">Our Module — Order Tracking</h3>
+            <p>Our group is responsible for the <strong style="color:var(--orange);">Order Tracking Module</strong>. This module allows customers to see exactly where their order is at every stage of the delivery process.</p>
+            <p>Order statuses include:</p>
+            <ul style="list-style:none;margin:8px 0 16px;">
+              <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px;">📬 <strong>Order Placed</strong> — Order received by the system</li>
+              <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px;">⚙️ <strong>Processing</strong> — Order being prepared</li>
+              <li style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px;">🚚 <strong>Shipped</strong> — Order on its way</li>
+              <li style="padding:6px 0;font-size:14px;">✅ <strong>Delivered</strong> — Order received by customer</li>
+            </ul>
+            <p style="margin:0;font-size:13px;color:var(--text-muted);">Only admins can update order status. Customers can only view their own orders.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ PROBLEM STATEMENT ═══════════ -->
+    <section class="section" style="background:var(--navy);">
+      <div class="container">
+        <h2 class="section-title" style="color:var(--white);">Problem Statement</h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.6);">The problem our system solves.</p>
+
+        <div class="grid-2">
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);padding:28px;">
+            <h3 style="color:var(--white);margin-bottom:16px;">❌ The Problem</h3>
+            <ul style="list-style:none;">
+              <li style="color:rgba(255,255,255,0.75);font-size:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">Customers have no visibility of their order after placing it</li>
+              <li style="color:rgba(255,255,255,0.75);font-size:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">Admins update order status manually on paper or spreadsheets</li>
+              <li style="color:rgba(255,255,255,0.75);font-size:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">No secure login — anyone can access sensitive customer data</li>
+              <li style="color:rgba(255,255,255,0.75);font-size:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">Customers must call the store just to find out where their order is</li>
+              <li style="color:rgba(255,255,255,0.75);font-size:14px;padding:8px 0;">No separation between admin and customer access levels</li>
+            </ul>
+          </div>
+
+          <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);padding:28px;">
+            <h3 style="color:var(--white);margin-bottom:16px;">✅ Our Solution</h3>
+            <ul style="list-style:none;">
+              <li style="color:rgba(255,255,255,0.75);font-size:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">Real-time order tracking — customers see status instantly</li>
+              <li style="color:rgba(255,255,255,0.75);font-size:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">Admins update status through a secure web interface</li>
+              <li style="color:rgba(255,255,255,0.75);font-size:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">Secure login with bcrypt password hashing</li>
+              <li style="color:rgba(255,255,255,0.75);font-size:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);">Customers only see their own orders — never others</li>
+              <li style="color:rgba(255,255,255,0.75);font-size:14px;padding:8px 0;">Role-based access control — Admin vs Customer</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ TEAM ═══════════ -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Meet the Team</h2>
+        <p class="section-sub">The SheaMart Order Tracking development team.</p>
+
+        <div class="grid-3" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+
+          <div class="card" style="text-align:center;">
+            <div style="width:64px;height:64px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px;">👑</div>
+            <h4>Iraj</h4>
+            <p style="font-size:12px;margin:4px 0;">Group Leader / Developer</p>
+            <span style="font-size:11px;background:var(--orange-light);color:var(--orange);padding:3px 10px;border-radius:20px;font-weight:600;">Leader</span>
+          </div>
+
+          <div class="card" style="text-align:center;">
+            <div style="width:64px;height:64px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px;">🔍</div>
+            <h4>Priya</h4>
+            <p style="font-size:12px;margin:4px 0;"> Frontend Reviewer / Tester</p>
+            <span style="font-size:11px;background:var(--off-white);color:var(--text-muted);padding:3px 10px;border-radius:20px;font-weight:600;">Reviewer</span>
+          </div>
+
+          <div class="card" style="text-align:center;">
+            <div style="width:64px;height:64px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px;">🧪</div>
+            <h4>Nelu</h4>
+            <p style="font-size:12px;margin:4px 0;">Tester</p>
+            <span style="font-size:11px;background:var(--off-white);color:var(--text-muted);padding:3px 10px;border-radius:20px;font-weight:600;">Tester</span>
+          </div>
+
+          <div class="card" style="text-align:center;">
+            <div style="width:64px;height:64px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px;">📋</div>
+            <h4>Bibash</h4>
+            <p style="font-size:12px;margin:4px 0;">Project Manager</p>
+            <span style="font-size:11px;background:var(--off-white);color:var(--text-muted);padding:3px 10px;border-radius:20px;font-weight:600;">PM</span>
+          </div>
+
+          <div class="card" style="text-align:center;">
+            <div style="width:64px;height:64px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px;">🧑‍💻</div>
+            <h4>Syed Taq</h4>
+            <p style="font-size:12px;margin:4px 0;">Tester / Developer</p>
+            <span style="font-size:11px;background:var(--off-white);color:var(--text-muted);padding:3px 10px;border-radius:20px;font-weight:600;">Dev</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>🛒 SheaMart</h4>
+          <p>A secure retail order management system built as a capstone group project.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Modules</h4>
+          <ul>
+            <li><a href="#">Product Catalogue</a></li>
+            <li><a href="#">Shopping Cart</a></li>
+            <li><a href="#" style="color:var(--orange);font-weight:600;">Order Tracking ★</a></li>
+            <li><a href="#">Admin Dashboard</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Project</h4>
+          <ul>
+            <li><a href="#">GitHub Repository</a></li>
+            <li><a href="#">JIRA Sprint Board</a></li>
+            <li><a href="#">Documentation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 SheaMart Group Project. Built for educational purposes.</p>
+        <div class="security-badges">
+          <div class="sec-badge">🔒 HTTPS</div>
+          <div class="sec-badge">🛡️ bcrypt</div>
+          <div class="sec-badge">✅ Validated</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('site-nav').classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>

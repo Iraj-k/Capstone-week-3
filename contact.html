@@ -3,259 +3,157 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SheaMart – Contact Us</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --orange: #e65c00;
-      --orange-light: #fff3eb;
-      --orange-dark: #b84700;
-      --navy: #1a2340;
-      --text: #1a2340;
-      --text-muted: #5a6478;
-      --bg: #f7f8fa;
-      --white: #ffffff;
-      --border: #e2e6ef;
-      --green: #1d7a4f;
-      --green-light: #e6f5ee;
-      --radius: 10px;
-      --shadow: 0 2px 12px rgba(26,35,64,0.08);
-    }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    /* ── HEADER ── */
-    header {
-      background: var(--navy);
-      color: var(--white);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--white);
-    }
-
-    .logo-icon {
-      width: 36px;
-      height: 36px;
-      background: var(--orange);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .logo-text {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-    }
-
-    .logo-text span {
-      color: var(--orange);
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    nav a {
-      color: rgba(255,255,255,0.78);
-      text-decoration: none;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    nav a:hover, nav a.active {
-      background: rgba(255,255,255,0.1);
-      color: var(--white);
-    }
-
-    /* ── MAIN ── */
-    main {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 48px 24px 60px;
-    }
-
-    .page-title {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--navy);
-      margin-bottom: 6px;
-      text-align: center;
-    }
-
-    .page-sub {
-      font-size: 14px;
-      color: var(--text-muted);
-      text-align: center;
-      margin-bottom: 32px;
-    }
-
-    /* Contact form card */
-    .contact-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 36px 32px;
-      box-shadow: var(--shadow);
-    }
-
-    .form-group { margin-bottom: 20px; }
-
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 6px;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      font-size: 14px;
-      font-family: inherit;
-      color: var(--text);
-      background: var(--bg);
-      transition: border-color 0.15s, box-shadow 0.15s;
-      outline: none;
-    }
-
-    .form-group textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(230,92,0,0.12);
-    }
-
-    .btn-submit {
-      width: 100%;
-      background: var(--orange);
-      color: var(--white);
-      border: none;
-      border-radius: 8px;
-      padding: 13px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .btn-submit:hover {
-      background: var(--orange-dark);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--navy);
-      color: rgba(255,255,255,0.65);
-      padding: 28px 24px;
-      text-align: center;
-    }
-
-    footer p {
-      font-size: 12px;
-    }
-  </style>
+  <title>SheaMart – Contact</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ═══════════════════════════
-       HEADER
-  ═══════════════════════════ -->
-  <header>
-    <div class="header-inner">
+  <!-- ═══════════ HEADER ═══════════ -->
+  <header class="site-header">
+    <div class="container header-inner">
       <a href="index.html" class="logo">
         <div class="logo-icon">🛒</div>
         <span class="logo-text">Shea<span>Mart</span></span>
       </a>
-      <nav>
+      <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+      <nav class="site-nav" id="site-nav">
         <a href="index.html">Home</a>
-        <a href="index.html#products">Products</a>
+        <a href="about.html">About</a>
         <a href="contact.html" class="active">Contact</a>
-        <a href="index.html#login">Login</a>
+        <a href="#" class="nav-cta">Login</a>
       </nav>
     </div>
   </header>
 
-
-  <!-- ═══════════════════════════
-       MAIN
-  ═══════════════════════════ -->
   <main>
-    <h1 class="page-title">Contact SheaMart</h1>
-    <p class="page-sub">Have a question or feedback? Send us a message below.</p>
 
-    <div class="contact-card">
-      <form id="contactForm">
+    <!-- ═══════════ PAGE HERO ═══════════ -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Contact Us</h1>
+        <p>Have a question or feedback? Send us a message and we'll get back to you.</p>
+      </div>
+    </section>
 
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+    <!-- ═══════════ CONTACT FORM ═══════════ -->
+    <section class="section">
+      <div class="container">
+        <div class="form-card">
+
+          <h2 style="margin-bottom:6px;">Send a Message</h2>
+          <p style="margin-bottom:28px;font-size:14px;">Fill in the form below and we will respond as soon as possible.</p>
+
+          <div style="background:var(--green-light);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:24px;font-size:12px;color:var(--green);font-weight:500;">
+            🔒 Your information is secure. We never share your details.
+          </div>
+
+          <form id="contactForm" novalidate>
+
+            <div class="form-group">
+              <label for="name">Full Name <span style="color:var(--orange);">*</span></label>
+              <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address <span style="color:var(--orange);">*</span></label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="0412 345 678" />
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message <span style="color:var(--orange);">*</span></label>
+              <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%;padding:14px;">
+              Submit Message
+            </button>
+
+            <p style="font-size:12px;text-align:center;color:var(--text-muted);margin-top:14px;">
+              * Required fields
+            </p>
+
+          </form>
+
+          <div id="success-msg" style="display:none;background:var(--green-light);border:1px solid var(--green);border-radius:8px;padding:16px;text-align:center;margin-top:16px;">
+            <div style="font-size:24px;margin-bottom:8px;">✅</div>
+            <p style="color:var(--green);font-weight:600;margin:0;">Message sent successfully! We'll be in touch soon.</p>
+          </div>
+
         </div>
+      </div>
+    </section>
 
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required />
-        </div>
-
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
-        </div>
-
-        <button type="submit" class="btn-submit">Submit Message</button>
-
-      </form>
-    </div>
   </main>
 
-
-  <!-- ═══════════════════════════
-       FOOTER
-  ═══════════════════════════ -->
-  <footer>
-    <p>© 2025 SheaMart Group Project. Built for educational purposes.</p>
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>🛒 SheaMart</h4>
+          <p>A secure retail order management system built as a capstone group project.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Modules</h4>
+          <ul>
+            <li><a href="#">Product Catalogue</a></li>
+            <li><a href="#">Shopping Cart</a></li>
+            <li><a href="#" style="color:var(--orange);font-weight:600;">Order Tracking ★</a></li>
+            <li><a href="#">Admin Dashboard</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Project</h4>
+          <ul>
+            <li><a href="#">GitHub Repository</a></li>
+            <li><a href="#">JIRA Sprint Board</a></li>
+            <li><a href="#">Documentation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 SheaMart Group Project. Built for educational purposes.</p>
+        <div class="security-badges">
+          <div class="sec-badge">🔒 HTTPS</div>
+          <div class="sec-badge">🛡️ bcrypt</div>
+          <div class="sec-badge">✅ Validated</div>
+        </div>
+      </div>
+    </div>
   </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('site-nav').classList.toggle('open');
+    }
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name) { alert('Please enter your full name.'); return; }
+      if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+      if (!message) { alert('Please enter a message.'); return; }
+
+      this.style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+    });
+  </script>
 
 </body>
 </html>
