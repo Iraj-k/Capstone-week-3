@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SheaMart – Order Tracking</title>
+  <style>
+    /* ── TOKENS (matching style.css) ── */
+    :root {
+      --navy:        #0d1b2a;
+      --navy-light:  #1a2f45;
+      --orange:      #e07b2a;
+      --orange-light:#fdf0e6;
+      --white:       #ffffff;
+      --off-white:   #f5f7fa;
+      --border:      #e2e8f0;
+      --text:        #1a202c;
+      --text-muted:  #718096;
+      --green:       #1d7a4f;
+      --green-light: #e6f4ee;
+      --red:         #c0392b;
+      --red-light:   #fdecea;
+      --blue-light:  #ebf4ff;
+      --blue:        #2563eb;
+      --radius:      10px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--off-white); color: var(--text); font-size: 15px; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    p { margin-bottom: 10px; }
+    ul { list-style: none; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── HEADER ── */
+    .site-header { background: var(--navy); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.25); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon { font-size: 1.6rem; }
+    .logo-text { font-size: 1.3rem; font-weight: 800; color: var(--white); letter-spacing: 0.5px; }
+    .logo-text span { color: var(--orange); }
+    .site-nav { display: flex; align-items: center; gap: 6px; }
+    .site-nav a { color: rgba(255,255,255,0.75); padding: 6px 14px; border-radius: 6px; font-size: 0.9rem; font-weight: 500; transition: all 0.15s; }
+    .site-nav a:hover, .site-nav a.active { color: var(--white); background: rgba(255,255,255,0.1); }
+    .site-nav .nav-cta { background: var(--orange); color: var(--white) !important; padding: 7px 18px; border-radius: 6px; font-weight: 600; }
+    .site-nav .nav-cta:hover { background: #c96d1e; }
+    .nav-toggle { display: none; background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; }
+
+    /* ── PAGE HERO ── */
+    .page-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); padding: 48px 0 40px; }
+    .page-hero h1 { color: var(--white); font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+    .page-hero p { color: rgba(255,255,255,0.65); font-size: 1rem; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 48px 0; }
+
+    /* ── CARDS ── */
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 24px; }
+    .card h2 { font-size: 1.05rem; color: var(--navy); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 2px solid var(--off-white); display: flex; align-items: center; gap: 8px; }
+
+    /* ── BUTTONS ── */
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 0.88rem; font-weight: 600; transition: opacity 0.15s, transform 0.1s; }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn-primary  { background: var(--navy);   color: var(--white); }
+    .btn-orange   { background: var(--orange); color: var(--white); }
+    .btn-success  { background: var(--green);  color: var(--white); }
+    .btn-warning  { background: #e6a817;       color: var(--white); }
+    .btn-danger   { background: var(--red);    color: var(--white); }
+    .btn-sm       { padding: 5px 12px; font-size: 0.8rem; }
+    .btn-ghost    { background: var(--off-white); color: var(--text); border: 1px solid var(--border); }
+
+    /* ── FORM ── */
+    .form-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .form-row input, .form-row select {
+      flex: 1; min-width: 150px;
+      padding: 9px 12px; border: 1px solid var(--border); border-radius: 6px;
+      font-size: 0.9rem; background: var(--white); color: var(--text);
+    }
+    .form-row input:focus, .form-row select:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-light); }
+
+    /* ── BANNER ── */
+    #banner { display: none; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; font-weight: 500; }
+    #banner.success { background: var(--green-light); color: var(--green); border: 1px solid #b2dfce; display: block; }
+    #banner.error   { background: var(--red-light);   color: var(--red);   border: 1px solid #f5c6cb; display: block; }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    thead th { background: var(--navy); color: var(--white); padding: 11px 14px; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.3px; }
+    thead th:first-child { border-radius: 6px 0 0 0; }
+    thead th:last-child  { border-radius: 0 6px 0 0; }
+    tbody tr:nth-child(even) { background: var(--off-white); }
+    tbody tr:hover { background: var(--blue-light); }
+    tbody td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    #emptyRow td { text-align: center; color: var(--text-muted); padding: 30px; }
+    #loadingRow td { text-align: center; color: var(--text-muted); padding: 30px; }
+
+    /* ── BADGES ── */
+    .badge { display: inline-block; padding: 3px 11px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.3px; }
+    .badge-pending    { background: #fff3cd; color: #7a5500; }
+    .badge-processing { background: var(--blue-light); color: #1a4eb8; }
+    .badge-shipped    { background: var(--green-light); color: var(--green); }
+
+    .actions { display: flex; gap: 6px; }
+
+    /* ── MODAL ── */
+    #modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; }
+    #modal.open { display: flex; }
+    .modal-box { background: var(--white); border-radius: var(--radius); padding: 28px; width: 440px; max-width: 95vw; box-shadow: 0 16px 48px rgba(0,0,0,0.22); }
+    .modal-box h3 { color: var(--navy); font-size: 1.05rem; margin-bottom: 20px; }
+    .modal-field { margin-bottom: 14px; }
+    .modal-field label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.4px; }
+    .modal-field input, .modal-field select { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; }
+    .modal-field input:focus, .modal-field select:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-light); }
+    .modal-actions { display: flex; gap: 10px; margin-top: 22px; justify-content: flex-end; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--navy); color: rgba(255,255,255,0.7); padding: 48px 0 0; margin-top: 40px; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 32px; padding-bottom: 32px; }
+    .footer-col h4 { color: var(--white); font-size: 0.9rem; font-weight: 700; margin-bottom: 14px; }
+    .footer-col p  { font-size: 0.85rem; line-height: 1.6; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul li a { font-size: 0.85rem; color: rgba(255,255,255,0.6); transition: color 0.15s; }
+    .footer-col ul li a:hover { color: var(--orange); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 18px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 0.82rem; margin: 0; }
+    .security-badges { display: flex; gap: 8px; }
+    .sec-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 4px 12px; font-size: 0.75rem; color: rgba(255,255,255,0.7); }
+
+    @media (max-width: 640px) {
+      .nav-toggle { display: block; }
+      .site-nav { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--navy); padding: 12px 0; }
+      .site-nav.open { display: flex; }
+      .form-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🛒</div>
+      <span class="logo-text">Shea<span>Mart</span></span>
+    </a>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation">☰</button>
+    <nav class="site-nav" id="site-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="order-tracking.html" class="active">Order Tracking</a>
+      <a href="#" class="nav-cta">Login</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>🚚 Order Tracking</h1>
+      <p>View, add, update and delete order status records. Admin access only.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <div id="banner"></div>
+
+      <!-- Add Record -->
+      <div class="card">
+        <h2>➕ Add New Order Status</h2>
+        <div class="form-row">
+          <input type="number" id="newOrderId"  placeholder="Order ID (number)" min="1" />
+          <select id="newStatus">
+            <option value="">Select Status</option>
+            <option value="Pending">📬 Pending</option>
+            <option value="Processing">⚙️ Processing</option>
+            <option value="Shipped">🚚 Shipped</option>
+          </select>
+          <input type="text" id="newRemarks" placeholder="Remarks (e.g. Order received)" />
+          <button class="btn btn-orange" onclick="createRecord()">Add Record</button>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="card">
+        <h2>📋 All Order Statuses</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Status ID</th>
+                <th>Order ID</th>
+                <th>Status</th>
+                <th>Remarks</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr id="loadingRow"><td colspan="5">⏳ Connecting to server...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════ EDIT MODAL ═══════════ -->
+<div id="modal">
+  <div class="modal-box">
+    <h3>✏️ Update Order Status</h3>
+    <input type="hidden" id="editId" />
+    <div class="modal-field">
+      <label>Order ID</label>
+      <input type="number" id="editOrderId" min="1" />
+    </div>
+    <div class="modal-field">
+      <label>Status</label>
+      <select id="editStatus">
+        <option value="Pending">📬 Pending</option>
+        <option value="Processing">⚙️ Processing</option>
+        <option value="Shipped">🚚 Shipped</option>
+      </select>
+    </div>
+    <div class="modal-field">
+      <label>Remarks</label>
+      <input type="text" id="editRemarks" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-warning" onclick="saveEdit()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>🛒 SheaMart</h4>
+        <p>A secure retail order management system built as a capstone group project.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Modules</h4>
+        <ul>
+          <li><a href="#">Product Catalogue</a></li>
+          <li><a href="#">Shopping Cart</a></li>
+          <li><a href="order-tracking.html" style="color:var(--orange);font-weight:600;">Order Tracking ★</a></li>
+          <li><a href="#">Admin Dashboard</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Project</h4>
+        <ul>
+          <li><a href="#">GitHub Repository</a></li>
+          <li><a href="#">JIRA Sprint Board</a></li>
+          <li><a href="#">Documentation</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 SheaMart Group Project. Built for educational purposes.</p>
+      <div class="security-badges">
+        <div class="sec-badge">🔒 HTTPS</div>
+        <div class="sec-badge">🛡️ bcrypt</div>
+        <div class="sec-badge">✅ Validated</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const API = 'http://localhost:3000/api/order-status';
+
+  function toggleNav() { document.getElementById('site-nav').classList.toggle('open'); }
+
+  function showBanner(msg, type) {
+    const b = document.getElementById('banner');
+    b.textContent = msg;
+    b.className = type;
+    setTimeout(() => { b.style.display = 'none'; b.className = ''; }, 4000);
+  }
+
+  function badge(status) {
+    const map = { Pending: 'badge-pending', Processing: 'badge-processing', Shipped: 'badge-shipped' };
+    return `<span class="badge ${map[status] || ''}">${status}</span>`;
+  }
+
+  async function loadRecords() {
+    try {
+      const res = await fetch(API);
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+      if (!data.length) {
+        tbody.innerHTML = '<tr id="emptyRow"><td colspan="5">No records found.</td></tr>';
+        return;
+      }
+      data.forEach(r => {
+        const rem = (r.remarks || '').replace(/'/g, "\\'");
+        tbody.innerHTML += `<tr>
+          <td>${r.id}</td>
+          <td>${r.order_id}</td>
+          <td>${badge(r.status)}</td>
+          <td>${r.remarks || '—'}</td>
+          <td><div class="actions">
+            <button class="btn btn-warning btn-sm" onclick="openEdit(${r.id},${r.order_id},'${r.status}','${rem}')">✏️ Edit</button>
+            <button class="btn btn-danger btn-sm"  onclick="deleteRecord(${r.id})">🗑 Delete</button>
+          </div></td>
+        </tr>`;
+      });
+    } catch {
+      document.getElementById('tableBody').innerHTML =
+        '<tr><td colspan="5" style="color:#c0392b;text-align:center;padding:24px;">⚠️ Cannot connect to server. Make sure the backend is running on port 3000.</td></tr>';
+    }
+  }
+
+  async function createRecord() {
+    const order_id = parseInt(document.getElementById('newOrderId').value);
+    const status   = document.getElementById('newStatus').value;
+    const remarks  = document.getElementById('newRemarks').value.trim();
+    if (!order_id || !status || !remarks) { showBanner('⚠️ Please fill in all fields.', 'error'); return; }
+    try {
+      const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ order_id, status, remarks }) });
+      const data = await res.json();
+      if (!res.ok) { showBanner('❌ ' + (data.error || 'Error creating record.'), 'error'); return; }
+      showBanner('✅ Order status record created successfully!', 'success');
+      document.getElementById('newOrderId').value = '';
+      document.getElementById('newStatus').value = '';
+      document.getElementById('newRemarks').value = '';
+      loadRecords();
+    } catch { showBanner('❌ Could not connect to server.', 'error'); }
+  }
+
+  function openEdit(id, order_id, status, remarks) {
+    document.getElementById('editId').value      = id;
+    document.getElementById('editOrderId').value = order_id;
+    document.getElementById('editStatus').value  = status;
+    document.getElementById('editRemarks').value = remarks;
+    document.getElementById('modal').classList.add('open');
+  }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+  async function saveEdit() {
+    const id       = document.getElementById('editId').value;
+    const order_id = parseInt(document.getElementById('editOrderId').value);
+    const status   = document.getElementById('editStatus').value;
+    const remarks  = document.getElementById('editRemarks').value.trim();
+    if (!order_id || !status || !remarks) { showBanner('⚠️ Please fill in all fields.', 'error'); return; }
+    try {
+      const res = await fetch(`${API}/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ order_id, status, remarks }) });
+      const data = await res.json();
+      if (!res.ok) { showBanner('❌ ' + (data.error || 'Error updating record.'), 'error'); return; }
+      showBanner('✅ Record updated successfully!', 'success');
+      closeModal();
+      loadRecords();
+    } catch { showBanner('❌ Could not connect to server.', 'error'); }
+  }
+
+  async function deleteRecord(id) {
+    if (!confirm(`Delete order status record #${id}?`)) return;
+    try {
+      const res = await fetch(`${API}/${id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (!res.ok) { showBanner('❌ ' + (data.error || 'Error deleting.'), 'error'); return; }
+      showBanner('✅ Record deleted successfully!', 'success');
+      loadRecords();
+    } catch { showBanner('❌ Could not connect to server.', 'error'); }
+  }
+
+  loadRecords();
+</script>
+</body>
+</html>
