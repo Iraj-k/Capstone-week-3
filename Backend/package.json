@@ -1,0 +1,10 @@
+{
+  "name": "sheamart-backend",
+  "version": "1.0.0",
+  "description": "SheaMart Order Tracking Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}
